@@ -1,0 +1,29 @@
+# git clone https://github.com/Hand-of-Doom/budgie.git
+# cd ./budgie/examples/real_world
+# budgie run
+
+output="$(pwd)/build"
+mkdir -p $output
+
+exe_file="$output/app.bin"
+
+target buildBackend:
+    cd ./backend
+    go build -o "$exe_file"
+    cp ./config.yaml $output
+end
+
+target buildFrontend:
+    cd ./frontend
+    [ ! -d ./node_modules ] && npm i
+    public_dir="$output/public"
+    npx esbuild ./app.js --bundle --minify --outfile="$public_dir/bundle.js"
+    cp -a ./static/. "$public_dir/"
+end
+
+target build(buildBackend buildFrontend):end
+
+target run(build):
+    cd $output
+    $exe_file
+end

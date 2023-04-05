@@ -1,0 +1,17 @@
+# git clone https://github.com/Hand-of-Doom/budgie.git
+# cd ./budgie/examples/complex_example
+# budgie build whatever_filename_you_want.budgie
+
+output=$(pwd)
+
+for i in $(seq 1 5); do
+    output="$output/$i"
+done
+
+target build:
+   go build -o $output
+   add() {
+       echo $(($1 + $2))
+   }
+   echo "compilation time is $(add 2 3) ms"
+end

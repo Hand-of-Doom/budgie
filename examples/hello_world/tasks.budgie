@@ -1,0 +1,7 @@
+# git clone https://github.com/Hand-of-Doom/budgie.git
+# cd ./budgie/examples/hello_world
+# budgie printHelloWorld
+
+target printHelloWorld:
+    echo "Hello world!"
+end

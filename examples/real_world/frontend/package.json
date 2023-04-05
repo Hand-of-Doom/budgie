@@ -1,0 +1,8 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "dependencies": {
+    "esbuild": "^0.17.15",
+    "lit-html": "^2.7.0"
+  }
+}
