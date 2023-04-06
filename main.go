@@ -100,7 +100,7 @@ func runTarget(targetName string, targets targetsSet) error {
 			return err
 		}
 	}
-	cmd := exec.Command("/bin/bash", "-c", target.src)
+	cmd := exec.Command("/bin/sh", "-c", target.src)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	cmd.Stdin = os.Stdin
