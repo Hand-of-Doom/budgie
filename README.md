@@ -5,6 +5,10 @@ No dependencies, blazing fast
 
 ## How to install
 ```bash
+sudo sh -c "$(wget -qO- https://raw.githubusercontent.com/Hand-of-Doom/budgie/main/installer/install.sh)" 1.0.1
+```
+You can install it as a go package if you have go installed
+```bash
 go install github.com/Hand-of-Doom/budgie@latest
 ```
 
