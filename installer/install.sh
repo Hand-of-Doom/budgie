@@ -12,8 +12,8 @@ fi
 tag="v$1"
 download_url="https://github.com/Hand-of-Doom/budgie/releases/download/$tag/budgie"
 
-status=$(curl --write-out %{http_code} --output /dev/null $download_url)
-if [ "$status" = 404 ]; then
+resp_status=$(curl --write-out %{http_code} --output /dev/null $download_url)
+if [ "$resp_status" = 404 ]; then
   cat << EOF
 wrong version
 see https://github.com/Hand-of-Doom/budgie/releases
@@ -31,7 +31,7 @@ chmod +x $exe_file
 
 dest=""
 
-if [ $EUID -ne 0 ]; then
+if [ $(id -u) -ne 0 ]; then
   dest="$HOME/.local/bin"
 
   yellow_color="\033[0;33m"
