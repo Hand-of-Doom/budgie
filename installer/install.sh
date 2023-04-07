@@ -1,13 +1,5 @@
 #!/bin/sh
 
-if [ $EUID -ne 0 ]; then
-  cat << EOF
-it requires a root access to move the budgie executable file into the bin directory
-please run as root
-EOF
-  exit
-fi
-
 if [ -z $0 ]; then
   cat << EOF
 pass the version you need as the first argument
@@ -29,15 +21,27 @@ EOF
   exit
 fi
 
-dest="temp-$(uuidgen)"
-mkdir $dest
+temp="temp-$(uuidgen)"
+mkdir $temp
 
-exe_file="$dest/exe"
+exe_file="$temp/exe"
 
 wget -O $exe_file $download_url
 chmod +x $exe_file
 
-mv $exe_file /usr/local/bin/budgie
-rm -rf $dest
+dest=""
 
-echo "budgie has been successfully installed"
+if [ $EUID -ne 0 ]; then
+  dest="$HOME/.local/bin"
+
+  yellow_color="\033[0;33m"
+  color_off="\033[0m"
+  printf "${yellow_color}make sure the PATH variable contains $dest$color_off\n"
+else
+  dest="/usr/local/bin"
+fi
+
+mv $exe_file "$dest/budgie"
+rm -rf $temp
+
+echo "budgie has been successfully installed in $dest"
