@@ -37,7 +37,7 @@ exe_file="$dest/exe"
 wget -O $exe_file $download_url
 chmod +x $exe_file
 
-mv $exe_file /bin/budgie
+mv $exe_file /usr/local/bin/budgie
 rm -rf $dest
 
 echo "budgie has been successfully installed"
