@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ -z $1 ]; then
+if [ -z "$1" ]; then
   cat << EOF
 pass the version you need as the first argument
 see https://github.com/Hand-of-Doom/budgie/releases
@@ -12,7 +12,7 @@ fi
 tag="v$1"
 download_url="https://github.com/Hand-of-Doom/budgie/releases/download/$tag/budgie"
 
-resp_status=$(curl --write-out %{http_code} --output /dev/null $download_url)
+resp_status=$(curl --write-out "%{http_code}" --output /dev/null "$download_url")
 if [ "$resp_status" = 404 ]; then
   cat << EOF
 wrong version
@@ -22,26 +22,26 @@ EOF
 fi
 
 temp="temp-$(uuidgen)"
-mkdir $temp
+mkdir "$temp"
 
 exe_file="$temp/exe"
 
-wget -O $exe_file $download_url
-chmod +x $exe_file
+wget -O "$exe_file" "$download_url"
+chmod +x "$exe_file"
 
 dest=""
 
-if [ $(id -u) -ne 0 ]; then
+if [ "$(id -u)" -ne 0 ]; then
   dest="$HOME/.local/bin"
 
   yellow_color="\033[0;33m"
-  color_off="\033[0m"
-  printf "${yellow_color}make sure the PATH variable contains $dest$color_off\n"
+  no_color="\033[0m"
+  printf "${yellow_color}make sure the PATH variable contains %s$no_color\n" "$dest"
 else
   dest="/usr/local/bin"
 fi
 
-mv $exe_file "$dest/budgie"
-rm -rf $temp
+mv "$exe_file" "$dest/budgie"
+rm -rf "$temp"
 
 echo "budgie has been successfully installed in $dest"
