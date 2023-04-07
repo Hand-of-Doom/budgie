@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ -z $0 ]; then
+if [ -z $1 ]; then
   cat << EOF
 pass the version you need as the first argument
 see https://github.com/Hand-of-Doom/budgie/releases
@@ -9,7 +9,7 @@ EOF
   exit
 fi
 
-tag="v$0"
+tag="v$1"
 download_url="https://github.com/Hand-of-Doom/budgie/releases/download/$tag/budgie"
 
 status=$(curl --write-out %{http_code} --output /dev/null $download_url)
