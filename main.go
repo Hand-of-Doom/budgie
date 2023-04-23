@@ -1,18 +1,35 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"os/exec"
-	"regexp"
+	"strings"
 	"unicode"
 )
 
 func extractScope(targetName string, file string) string {
-	pattern := fmt.Sprintf(`(?sU).*%s.*}`, targetName)
-	regexpScope := regexp.MustCompile(pattern)
+	before, after, ok := strings.Cut(file, targetName)
+	if !ok {
+		return before
+	}
+	charsetAfter := []rune(after)
+	var next bool
+	for i, char := range charsetAfter {
+		if char == '}' {
+			if next == false {
+				charsetAfter = charsetAfter[:i+1]
+				break
+			}
+			next = false
+			continue
+		}
+		if char == '{' {
+			next = true
+		}
+	}
 
-	return regexpScope.FindString(file)
+	scope := before + targetName + string(charsetAfter)
+	return scope
 }
 
 func runTarget(name string, file string) error {
