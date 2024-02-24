@@ -51,7 +51,7 @@ func runApplication() error {
 		panic("budgie requires a target name as the first argument")
 	}
 	if len(args) > 2 {
-		panic("you can pass less than 2 arguments")
+		panic("you can only pass less than 2 arguments")
 	}
 
 	var fname string
