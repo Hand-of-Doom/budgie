@@ -105,7 +105,7 @@ The output
 $ Hello world!
 ```
 
-If you don't want to use tasks.sh as a filename, just pass the path to the file you want as the second argument
+If you don't want to use tasks.sh as a filename, just pass a path to the file you want as the second argument
 ```bash
 $ budgie printHelloWorld fileYouWant
 ```
